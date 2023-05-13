@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.0.2
+// @version      0.0.3
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -65,6 +65,9 @@ function dashboard() {
     var divContent = document.createElement("div");
     divContent.innerHTML = `<p><img src="https://cdn.discordapp.com/emojis/905527527655735349.gif?size=96&quality=lossless" height=15> Connecting to the Dream Database...</p>`
     content.appendChild(divContent)
+    var divDreams = document.createElement("div");
+    dream_list(divDreams)
+    content.appendChild(divDreams)
     var divBrowser = document.createElement("div");
     divBrowser.innerHTML = `<p></p>`
     content.appendChild(divBrowser)
@@ -105,7 +108,17 @@ function search_header() {
     }
 }
 
-
+function dream_list(div) {
+    let dream_table = document.createElement("div")
+    let html = `<table class="table-auto striped-table my-3" cellspacing="0" cellpadding="0"><thead style="background-color:#dedf73"><tr height="25"><th>Icon</th><th>Item Info</th><th width="40%">Dream Description</th><th>Qty & Offer</th><th>Rm</th></tr></thead><tbody>`
+    for (let item in items) {
+        if (items[item].users.hasOwnProperty(user)) {
+            html += `<tr><td><div class="p-2"><img class="border border-black border-solid" src="${items[item].data.icon}" alt="${item}"></div></td><td class="font-black table-item-name px-2">${item}<br><span class="sf">${items[item].data.category}</span><br><span class="sf">r${items[item].data.rarity}</span></td><td><input class="px-1 py-2 sf" type="text" id="${item}_desc" value="${items[item].users[user].desc}" maxlength="255" style="width:95%"></td><td class="font-black text-center sf">Offering<br>${items[item].users[user].offer}<br>for ${items[item].users[user].qty}</td><td class="text-center"><button type="submit" id="rmv" value="Remove"></td></tr>`
+        }
+    }
+    dream_table.innerHTML = html
+    div.appendChild(dream_table)
+}
 
 function add_dream(zEvent) {
     let new_dream_form = document.createElement("div");
