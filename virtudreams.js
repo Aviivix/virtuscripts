@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.1
+// @version      0.0.2
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -67,7 +67,6 @@ function dashboard() {
     content.appendChild(divContent)
     var divBrowser = document.createElement("div");
     divBrowser.innerHTML = `<p></p>`
-    front_page();
     content.appendChild(divBrowser)
     var divider = document.createElement("div");
     divider.innerHTML = `<hr align="center" noshade="" size="1">`
