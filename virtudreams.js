@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.0.5
+// @version      0.0.6
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -94,12 +94,14 @@ function dreamer_items(dreamer) {
 
 // Dashboard HTML
 function dashboard() {
-    // ---- Telling the database that you're still alive ----
-    GM_xmlhttpRequest({
-        method: "PATCH",
-        url: `https://virtudreams-default-rtdb.firebaseio.com/users.json`,
-        data: `{ "${user}": "${Date.now()}" }`
-    });
+    // ---- Telling the database that you're still alive (only if youve given permission) ----
+    if (users.hasOwnProperty(user)) {
+        GM_xmlhttpRequest({
+            method: "PATCH",
+            url: `https://virtudreams-default-rtdb.firebaseio.com/users.json`,
+            data: `{ "${user}": "${Date.now()}" }`
+        });
+    }
     // ---- Initializing Elements ----
     var content = document.getElementsByClassName("settings")[0]
     // Removing the VirtuScript dummy text if VirtuDreams is the first script to trigger.
