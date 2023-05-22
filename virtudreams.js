@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.1.0
+// @version      0.1.1
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -258,16 +258,19 @@ function dream_listeners() {
 }
 
 function dream_browser(div) {
+    dream_overview(div)
     let dream_table = document.createElement("div")
     let html = `<br><p><b>Dream Browser</b></p><div class="item-grid">`
+    let counter = 0
     for (let item in items) {
         if (item_dreamers(item) == 0) { continue }
         html += `<div class="item-grid-item"><a href="/search/${items[item].data.id}"><img src="${items[item].data.icon}" class="border" style="margin-bottom:4px;"></a><br><b>${item}</b><br>${item_dreamers(item).length} seeking!</div>`
+        counter += 1
+        if (counter == 40) { break }
     }
     html += `</div>`
     dream_table.innerHTML = html
     div.appendChild(dream_table)
-    dream_overview(div)
 }
 
 function dream_overview(div) {
