@@ -3,6 +3,8 @@
 // @version      0.1.1
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
+// @downloadURL https://raw.githubusercontent.com/Aviivix/virtuscripts/main/virtudreams.js
+// @updateURL https://raw.githubusercontent.com/Aviivix/virtuscripts/main/virtudreams.js
 // @match        https://virtu.pet/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=virtu.pet
 // @grant GM_xmlhttpRequest
