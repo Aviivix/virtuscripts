@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.0.9
+// @version      0.1.0
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -186,7 +186,7 @@ function dashboard() {
         divContent.innerHTML = `<p>Welcome back to VirtuDreams, <b>${user}</b>.</p><p align="center"><b>Your Dreams</b></p>`
     } else {
         // Non-Dreamer Welcome Message
-        divContent.innerHTML = `<p>Welcome to VirtuDreams, <b>${user}</b>! It looks like you've never listed a Dream before. Don't worry, you can still browse Dreams without adding your own. But if you want to list your own Dreams, we want to make sure you know that the data (your username and the items you add) will be stored on an <i>external</i> database that is not affiliated with VirtuPets.<br><br>We also store the timestamp of the last time you checked the dashboard, as a way to avoid shop items being marked when the user who wants it has gone inactive. (We don't share this timestamp, it's only used by the backend to determine if it's been more than 90 days since you've last checked in.)</p><p align="center">You cool with that?<br><br><input type="submit" value="Sounds good!" id="agree_button"></p>`
+        divContent.innerHTML = `<p>Welcome to VirtuDreams, <b>${user}</b>! It looks like you've never listed a Dream before. Don't worry, you can still browse Dreams without adding your own. But if you want to list your own Dreams, we want to make sure you know that the data (your username and the items you add) will be stored on an <i>external</i> database that is not affiliated with VirtuPets.<br><br>Also, to avoid items being highlighted when their dreamer is inactive, you will need to visit this page at least once every 30 days just to let the database know you're still around. (As such, we have to privately store the timestamp of your last visit.)</p><p align="center">You cool with that?<br><br><input type="submit" value="Sounds good!" id="agree_button"></p>`
         var agree_button = document.querySelector ("#agree_button");
         if (agree_button) {
             agree_button.addEventListener ("click", function() {
