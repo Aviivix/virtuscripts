@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.0.9
+// @version      0.1.0
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
