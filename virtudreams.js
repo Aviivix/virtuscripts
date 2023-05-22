@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VirtuDreams
 // @namespace    https://virtu.pet/userlookup/?user=aviivix
-// @version      0.1.3
+// @version      0.1.4
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @downloadURL	 https://raw.githubusercontent.com/Aviivix/virtuscripts/main/virtudreams.js
