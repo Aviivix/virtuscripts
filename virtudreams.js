@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.0.6
+// @version      0.0.9
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -55,6 +55,15 @@ function loaded() {
     } else if (document.URL.startsWith("https://virtu.pet/search/")) {
         // Item information page.
         search_header()
+    } else if (document.URL.startsWith("https://virtu.pet/inventor")) {
+        // Inventory highlighter.
+        inventory()
+    } else if (document.URL.startsWith("https://virtu.pet/safetydeposi")) {
+        // SDB highlighter.
+        deposit()
+    } else if (document.URL.startsWith("https://virtu.pet/viewshop")) {
+        // Shop highlighter.
+        shop()
     } else if (document.URL.startsWith("https://virtu.pet/aviivix/~scrip")) {
         // Dashboard
         dashboard()
@@ -90,6 +99,48 @@ function dreamer_items(dreamer) {
         if (dreamerWantsItem(item, dreamer)) { desired_items[item] = items[item].users[dreamer] }
     }
     return desired_items
+}
+
+// Inventory HTML
+function inventory() {
+    let inv_items = document.getElementsByClassName("inventory-grid")[0].children
+    console.log(inv_items)
+    for (let x = 0; x < inv_items.length; x++) {
+        let item = inv_items[x].children[1].innerHTML
+        if (item_dreamers(item).length > 0) {
+            inv_items[x].style.backgroundColor = "#ffff88"
+            inv_items[x].innerHTML += `<div class="sf">${item_dreamers(item).length} seeking!</div>`
+        }
+    }
+}
+
+// Deposit Box HTML
+function deposit() {
+    let inv_items = document.getElementsByClassName("striped-table")[0].children[1].children
+    console.log(inv_items)
+    for (let x = 0; x < inv_items.length; x++) {
+        let item = inv_items[x].children[1].firstChild.textContent.trim()
+        console.log(item)
+        if (item_dreamers(item).length > 0) {
+            inv_items[x].style.backgroundColor = "#ffff88"
+            inv_items[x].children[1].innerHTML += `<br><div class="sf">${item_dreamers(item).length} seeking!</div>`
+        }
+    }
+}
+
+// Deposit Box HTML
+function shop() {
+    let inv_items = document.getElementsByClassName("shop-grid-item")
+    var names = document.getElementsByClassName("item-name");
+    console.log(inv_items)
+    for (let x = 0; x < inv_items.length; x++) {
+        let item = names[x].children[0].textContent
+        console.log(item)
+        if (item_dreamers(item).length > 0) {
+            inv_items[x].style.backgroundColor = "#ffff88"
+            inv_items[x].children[1].innerHTML += `<div class="sf">${item_dreamers(item).length} seeking!</div>`
+        }
+    }
 }
 
 // Dashboard HTML
@@ -159,6 +210,18 @@ function search_header() {
     pteri.innerHTML = `<div id="new_dream_button"><input type="image" src="https://cdn.discordapp.com/attachments/709603171449700373/1106795982835957870/pixiepteri1.png" name="newDream" id="newDream" /></div>`
     let banner = document.getElementsByClassName("site-banner")[0]
     banner.appendChild(pteri)
+    let main_content = document.getElementsByClassName("main-content")[0]
+    let item_info = document.getElementsByClassName("item-info")[0].children[1].children
+    let itemname = item_info[0].children[0].innerText
+    let dreamers = item_dreamers(itemname)
+    if (dreamers.length > 0) {
+        let html = `<br><br><table width="515px" style="margin-top:15px;" class="qstable" align="center"><tbody><tr><th style="background-color:#efedc0; width:150px; height:25px; font-size:10pt; padding-bottom:2px; padding-top:2px;">Dreamer</th><th style="background-color: #efedc0; font-size: 10pt; padding-bottom: 2px; padding-top:2px;">Details</th><th style="background-color: #efedc0; font-size: 10pt; padding-bottom: 2px; padding-top:2px; width:75px;">Qty</th></tr>`
+        for (let x = 0; x < dreamers.length; x++) {
+            html += `<tr height="30" align="center"><td align="center"><b><a href="/userlookup/?user=${dreamers[x]}">${dreamers[x]}</a></b></td><td align="center">${items[itemname].users[dreamers[x]].desc}</td><td align="center">${items[itemname].users[dreamers[x]].qty}</td></tr>`
+        }
+        html += `</tbody></table>`
+        main_content.innerHTML += html
+    }
     let new_dream_button = document.querySelector ("#new_dream_button");
     if (new_dream_button) {
         new_dream_button.addEventListener ("click", add_dream , false);
@@ -285,7 +348,7 @@ function add_dream(zEvent) {
                 url: `https://virtudreams-default-rtdb.firebaseio.com/items/${itemname}/users/${user}.json`,
                 data: `{ "desc": "${desc}", "qty": "${qty}" }`,
                 onload: function(response) {
-                    new_dream_form.innerHTML = `<p align="center">Your Dream has been added! To view, edit or remove this Dream, visit your <b>Dashboard</b>.</p>`
+                    new_dream_form.innerHTML = `<p align="center">Your Dream has been added! To view, edit or remove this Dream, visit your <a href="/aviivix/~script#panel"><b>Dashboard</b></a>.</p>`
                 }
             });
             GM_xmlhttpRequest({
@@ -293,7 +356,7 @@ function add_dream(zEvent) {
                 url: `https://virtudreams-default-rtdb.firebaseio.com/items/${itemname}/data.json`,
                 data: JSON.stringify(dream),
                 onload: function(response) {
-                    new_dream_form.innerHTML = `<p align="center">Your Dream has been added! To view, edit or remove this Dream, visit your <b>Dashboard</b>.</p>`
+                    new_dream_form.innerHTML = `<p align="center">Your Dream has been added! To view, edit or remove this Dream, visit your <a href="/aviivix/~script#panel"><b>Dashboard</b></a>.</p>`
                 }
             });
         } , false);
