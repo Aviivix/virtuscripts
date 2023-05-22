@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         VirtuDreams
-// @version      0.1.0
+// @version      0.0.9
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -293,20 +293,24 @@ function dream_overview(div) {
     top_items.sort(function(a, b) {return a[1] - b[1];})
     top_items.reverse()
     let html = `<br><p><b>Dreamiest Shops</b></p><p>These shops stock many sought-after items!</p><div class="item-grid">`
-    for (let index in t_ar) {
-        let shop = t_ar[index]
+    let limit
+    if ( t_ar.length <= 16 ) { limit = t_ar.length } else { limit = 16 }
+    for (let x = 0; x < limit; x++) {
+        let shop = t_ar[x]
         html += `<div class="item-grid-item"><a href="/viewshop/${shop[0]}"><img src="${shops[parseInt(shop[0]-1)].ic}" class="border" style="margin-bottom:4px;"></a><br><b>${shops[parseInt(shop[0])-1].name}</b><br>${shop[1]} dream items!</div>`
     }
     html += `</div><br><p><b>Dreamiest Items</b></p><p>These are the most dreamed-of items in our database!</p><div class="item-grid">`
-    for (let index in top_items) {
-        let item_data = top_items[index]
+    if ( top_items.length <= 16 ) { limit = top_items.length } else { limit = 16 }
+    for (let x = 0; x < limit; x++) {
+        let item_data = top_items[x]
         let item = item_data[0]
         if (item_dreamers(item) == 0) { continue }
         html += `<div class="item-grid-item"><a href="/search/${items[item].data.id}"><img src="${items[item].data.icon}" class="border" style="margin-bottom:4px;"></a><br><b>${item}</b><br>${item_dreamers(item).length} seeking!</div>`
     }
     html += `</div><br><p><b>Simple Dreams</b></p><p>These dream items restock pretty regularly at their respective shops!</p><div class="item-grid">`
-    for (let index in simple_dreams) {
-        let item = simple_dreams[index]
+    if ( simple_dreams.length <= 16 ) { limit = simple_dreams.length } else { limit = 16 }
+    for (let x = 0; x < limit; x++) {
+        let item = simple_dreams[x]
         if (item_dreamers(item) == 0) { continue }
         html += `<div class="item-grid-item"><a href="/search/${items[item].data.id}"><img src="${items[item].data.icon}" class="border" style="margin-bottom:4px;"></a><br><b>${item}</b><br>${item_dreamers(item).length} seeking!</div>`
     }
