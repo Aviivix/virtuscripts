@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         VirtuDreams
 // @namespace    https://virtu.pet/userlookup/?user=aviivix
-// @version      0.1.7
+// @version      0.1.8
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=virtu.pet
+// @downloadURL	 https://raw.githubusercontent.com/Aviivix/virtuscripts/main/virtudreams.js
+// @updateURL    https://raw.githubusercontent.com/Aviivix/virtuscripts/main/virtudreams.js
 // @grant        GM_xmlhttpRequest
 // @connect      virtudreams-default-rtdb.firebaseio.com
 // @connect      console.firebase.google.com
