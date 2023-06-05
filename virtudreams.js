@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VirtuDreams
 // @namespace    https://virtu.pet/userlookup/?user=aviivix
-// @version      0.1.8
+// @version      0.1.9
 // @description  The VirtuPets Dream Database!
 // @author       Aviivix
 // @match        https://virtu.pet/*
@@ -513,7 +513,7 @@ function dream_main() {
                 shop[1]
             ]
         }
-        html += `<div class="item-grid-item"><a href="/viewshop/${shop_data[0]}"><img src="${shop_data[1]}" class="border" style="margin-bottom:4px;"></a><br><b>${shop_data[2]}</b><br>${shop_data[3]} dream items!</div>`
+        html += `<div class="item-grid-item"><a href="${shop_data[0]}"><img src="${shop_data[1]}" class="border" style="margin-bottom:4px;"></a><br><b>${shop_data[2]}</b><br>${shop_data[3]} dream items!</div>`
     }
     html += `</div><br><p><b>Dreamiest Items</b></p><p>These are the most dreamed-of items in our database!</p><div class="item-grid">`
     if ( top_items.length <= 16 ) { limit = top_items.length } else { limit = 16 }
